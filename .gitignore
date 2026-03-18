@@ -6,8 +6,8 @@ target/
 *.ear
 
 ## Maven
-.mvn/
-!.mvn/wrapper/
+.mvn/timing.properties
+.mvn/wrapper/maven-wrapper.jar
 pom.xml.tag
 pom.xml.releaseBackup
 pom.xml.versionsBackup

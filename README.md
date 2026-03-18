@@ -182,8 +182,10 @@ java --version
 Deve exibir a versão 21.x. Em seguida, compile o projeto:
 
 ```bash
-mvn compile
+./mvnw compile
 ```
+
+> 💡 O projeto usa o **Maven Wrapper** (`./mvnw`), que garante a versão correta do Maven. Use `./mvnw` ao invés de `mvn` em todos os comandos.
 
 ### Passo 4 — Conhecer o Test Explorer
 
@@ -198,16 +200,16 @@ Você também pode executar testes pelo terminal:
 
 ```bash
 # Executar todos os testes
-mvn test
+./mvnw test
 
 # Executar com mais detalhes
-mvn test -Dsurefire.printSummary=true
+./mvnw test -Dsurefire.printSummary=true
 
 # Filtrar por nome de teste
-mvn test -Dtest="ContaTest#construtor_DadosValidos_CriaContaCorretamente"
+./mvnw test -Dtest="ContaTest#construtor_DadosValidos_CriaContaCorretamente"
 
 # Filtrar por método (padrão wildcard)
-mvn test -Dtest="ContaTest#depositar*"
+./mvnw test -Dtest="ContaTest#depositar*"
 ```
 
 ---
@@ -218,6 +220,8 @@ mvn test -Dtest="ContaTest#depositar*"
 tdd-junit-java/
 ├── .devcontainer/
 │   └── devcontainer.json              ← Configuração do Codespaces
+├── .mvn/wrapper/
+│   └── maven-wrapper.properties       ← Configuração do Maven Wrapper
 ├── .vscode/
 │   └── extensions.json                ← Extensões recomendadas
 ├── src/
@@ -262,7 +266,7 @@ Abra `src/test/java/contabancaria/ContaTest.java` e analise os testes prontos pa
 No terminal, execute:
 
 ```bash
-mvn test -Dtest="ContaTest#construtor*"
+./mvnw test -Dtest="ContaTest#construtor*"
 ```
 
 Ou pelo Test Explorer, expanda **ContaTest** e clique ▶️ nos testes de `construtor`.
@@ -405,11 +409,11 @@ void transferir_ValorValido_AtualizaSaldoDeAmbasContas() {
 
 ```bash
 # Todos os testes
-mvn test
+./mvnw test
 
 # Filtrar por método
-mvn test -Dtest="ContaTest#depositar*"
-mvn test -Dtest="ContaTest#sacar*"
+./mvnw test -Dtest="ContaTest#depositar*"
+./mvnw test -Dtest="ContaTest#sacar*"
 ```
 
 > ⚠️ **Mínimo exigido:** Crie pelo menos **15 testes** cobrindo todos os métodos da classe `Conta`.
@@ -464,19 +468,19 @@ assertEquals(tamanhoEsperado, lista.size());
 
 ```bash
 # Todos os testes
-mvn test
+./mvnw test
 
 # Filtrar por nome de teste
-mvn test -Dtest="ContaTest#construtor_DadosValidos_CriaContaCorretamente"
+./mvnw test -Dtest="ContaTest#construtor_DadosValidos_CriaContaCorretamente"
 
 # Filtrar por classe
-mvn test -Dtest="ContaTest"
+./mvnw test -Dtest="ContaTest"
 
 # Com detalhes
-mvn test -Dsurefire.printSummary=true
+./mvnw test -Dsurefire.printSummary=true
 
 # Com cobertura (requer plugin JaCoCo no pom.xml)
-mvn test jacoco:report
+./mvnw test jacoco:report
 ```
 
 ---
@@ -491,7 +495,7 @@ Para comprovar a realização da atividade, você deve entregar as seguintes evi
 |---|---|---|---|
 | 1 | Testes da Conta Bancária | Mínimo de 15 testes cobrindo todos os métodos | `src/test/java/contabancaria/ContaTest.java` |
 | 2 | Código da Conta Bancária | Classe Conta.java totalmente implementada (sem `UnsupportedOperationException`) | `src/main/java/contabancaria/Conta.java` |
-| 3 | Todos os testes passando | Screenshot ou saída do terminal mostrando `mvn test` com todos os testes passando | Incluir no commit |
+| 3 | Todos os testes passando | Screenshot ou saída do terminal mostrando `./mvnw test` com todos os testes passando | Incluir no commit |
 | 4 | Histórico de commits | Commits incrementais mostrando o ciclo TDD (ex: "red: teste depositar", "green: implementa depositar") | Histórico do Git |
 
 ### 📸 Screenshot dos testes
@@ -499,7 +503,7 @@ Para comprovar a realização da atividade, você deve entregar as seguintes evi
 Após concluir, execute e capture a saída:
 
 ```bash
-mvn test 2>&1 | tee resultado-testes.txt
+./mvnw test 2>&1 | tee resultado-testes.txt
 ```
 
 Faça o commit do arquivo `resultado-testes.txt` junto com seu código.
