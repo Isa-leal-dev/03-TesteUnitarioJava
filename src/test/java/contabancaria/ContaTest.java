@@ -260,7 +260,7 @@ class ContaTest {
         var conta = new Conta("Camila", 0);
 
         // Act
-        conta.encerrar();
+        conta.encerrar(); //- Encerrar conta com saldo zero funciona
         
         // Assert
         assertFalse(conta.isAtiva()); //Conta encerrada tem isAtiva() == false
