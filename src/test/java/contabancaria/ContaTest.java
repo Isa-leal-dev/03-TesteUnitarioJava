@@ -91,13 +91,9 @@ class ContaTest {
 
     // =======================================================
     //  Testes para depositar
-    //  Sugestão de testes:
-    //    - Depósito com valor válido atualiza o saldo
-    //    - Depósito com valor zero lança IllegalArgumentException
-    //    - Depósito com valor negativo lança IllegalArgumentException
-    //    - Depósito em conta inativa lança IllegalStateException
     // =======================================================
 
+    //    - Depósito com valor válido atualiza o saldo
     @Test
     void depositar_ValorValido_AtualizaSaldo() {
         // Arrange
@@ -110,16 +106,84 @@ class ContaTest {
         assertEquals(150, conta.getSaldo());
     }
 
+    //    - Depósito com valor zero lança IllegalArgumentException
+
+    @Test
+    void depositar_ValorZero_LancaIllegalArgumentException(){
+
+        //Arrange:
+        var conta = new Conta("Joana",1000);
+
+        //Act e Assert:
+        assertThrows(IllegalArgumentException.class, () -> conta.depositar(0));
+    }
+
+     //    - Depósito com valor negativo lança IllegalArgumentException
+
+     @Test
+    void depositar_ValorNegativo_LancaIllegalArgumentException(){
+
+        //Arrange:
+        var conta = new Conta("Joana",1000);
+
+        //Act e Assert:
+        assertThrows(IllegalArgumentException.class, () -> conta.depositar(-60));
+    }          
+     //    - Depósito em conta inativa lança IllegalStateException 
+     //Obs.: Implementar encerrar primeiro
+
+
 
     // =======================================================
     //  Testes para sacar
-    //  Sugestão de testes:
-    //    - Saque com valor válido atualiza o saldo
-    //    - Saque com valor maior que saldo lança IllegalStateException
-    //    - Saque com valor zero lança IllegalArgumentException
-    //    - Saque com valor negativo lança IllegalArgumentException
-    //    - Saque em conta inativa lança IllegalStateException
     // =======================================================
+
+    //    - Saque com valor válido atualiza o saldo
+    @Test
+    void sacar_ValorValido_AtualizaSaldo() {
+        // Arrange
+        var conta = new Conta("Nicolas", 1000);
+
+        // Act
+        conta.sacar(100);
+        
+        // Assert
+        assertEquals(900, conta.getSaldo());
+    }
+
+    //    - Saque com valor maior que saldo lança IllegalStateException
+
+    @Test
+    void sacar_ValorMaiorSaldo_LancaIllegalStateException(){
+        // Arrange
+        var conta = new Conta("Nicolas", 1000);
+
+        // Act e Assert
+        assertThrows(IllegalStateException.class, () -> conta.sacar(1100));
+    }
+    //    - Saque com valor zero lança IllegalArgumentException
+
+    @Test
+    void sacar_ValorZero_LancaIllegalStateException(){
+        // Arrange
+        var conta = new Conta("Nicolas", 1000);
+
+        // Act e Assert
+        assertThrows(IllegalStateException.class, () -> conta.sacar(0));
+    }
+
+    //    - Saque com valor negativo lança IllegalArgumentException
+
+    @Test
+    void sacar_ValorNegativo_LancaIllegalStateException(){
+        // Arrange
+        var conta = new Conta("Nicolas", 1000);
+
+        // Act e Assert
+        assertThrows(IllegalStateException.class, () -> conta.sacar(-10));
+    }
+    //    - Saque em conta inativa lança IllegalStateException
+    //Obs.: Implementar encerrar primeiro
 
 
     // =======================================================
