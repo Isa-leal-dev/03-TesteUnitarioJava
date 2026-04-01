@@ -55,7 +55,7 @@ public class Conta {
     public void depositar(double valor) {
 
         if(valor<=0)
-            throw new IllegalArgumentException("O valor deve ser maior que zero.");
+            throw new IllegalArgumentException("Valor deve ser maior que zero.");
 
         if(!ativa)
             throw new IllegalStateException("A conta deve estar ativa.");
@@ -72,8 +72,14 @@ public class Conta {
      *   - O saldo deve ser atualizado corretamente.
      */
     public void sacar(double valor) {
-        // TODO: Implemente usando TDD
-        throw new UnsupportedOperationException();
+        if(valor<=0)
+            throw new IllegalArgumentException("Valor deve ser maior que zero");
+        if(!ativa)
+            throw new IllegalStateException("Conta deve estar ativa");
+        if(valor>this.saldo)
+            throw new IllegalStateException("Não é possível sacar mais do que o saldo disponível");
+
+        this.saldo-=valor;       
     }
 
     /**
@@ -85,8 +91,15 @@ public class Conta {
      *   - O saldo de ambas as contas deve ser atualizado corretamente.
      */
     public void transferir(Conta destino, double valor) {
-        // TODO: Implemente usando TDD
-        throw new UnsupportedOperationException();
+        if(!this.ativa || !destino.ativa) //Se origem = inativa ou destino = inativa, joga exception pois as duas precisam estar ativas
+            throw new IllegalStateException("As duas contas devem estar ativas");
+        if(valor <= 0)
+            throw new IllegalArgumentException("Valor da transferência deve ser maior que zero");
+        if(valor>this.saldo)
+            throw new IllegalStateException("Saldo insuficiente!");
+
+        this.saldo -= valor; //Saldo de origem diminui
+        destino.saldo += valor; //Saldo de destino aumenta     
     }
 
     /**
@@ -97,7 +110,11 @@ public class Conta {
      *   - A propriedade ativa deve ser alterada para false.
      */
     public void encerrar() {
-        // TODO: Implemente usando TDD
-        throw new UnsupportedOperationException();
+        if(!ativa)
+            throw new IllegalStateException("Conta precisa estar ativa");
+        if(saldo > 0)
+            throw new IllegalStateException("O saldo deve ser zero para encerrar");
+
+        this.ativa = false;        
     }
 }
