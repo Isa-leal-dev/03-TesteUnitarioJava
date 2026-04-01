@@ -126,7 +126,7 @@ class ContaTest {
      @DisplayName("03 - Depósito em conta inativa lança IllegalStateException")
      void depositar_ContaInativa_LancaIllegalStateException(){
         //Arrange:
-        var conta = new Conta("Joana",0);
+        var conta = new Conta("Joana");//Cria conta com saldo 0
         conta.encerrar();
 
         //Act e Assert:
@@ -149,9 +149,22 @@ class ContaTest {
         // Assert
         assertEquals(900, conta.getSaldo());
     }
+
+    @Test //Caso de borda
+    @DisplayName("05 - Saque com valor igual ao saldo, saldo fica zerado")
+    void sacar_ValorIgualSaldo_SaldoZerado() {
+        // Arrange
+        var conta = new Conta("Nicolas", 200);
+
+        // Act
+        conta.sacar(200);
+        
+        // Assert
+        assertEquals(0, conta.getSaldo());
+    }
   
     @Test
-    @DisplayName("05 - Saque com valor maior que saldo lança IllegalStateException")
+    @DisplayName("06 - Saque com valor maior que saldo lança IllegalStateException")
     void sacar_ValorMaiorSaldo_LancaIllegalStateException(){
         // Arrange
         var conta = new Conta("Nicolas", 1000);
@@ -162,7 +175,7 @@ class ContaTest {
       
     @ParameterizedTest
     @ValueSource(doubles = {0, -0.01, -30})
-    @DisplayName("06 - Saque com valor zero/negativo lança IllegalArgumentException")
+    @DisplayName("07 - Saque com valor zero/negativo lança IllegalArgumentException")
     void sacar_ValorZeroOuNegativo_LancaIllegalArgumentException(double valor){
         // Arrange
         var conta = new Conta("Nicolas", 1000);
@@ -172,10 +185,10 @@ class ContaTest {
     }
   
     @Test
-    @DisplayName("07 - Saque em conta inativa lança IllegalStateException")
+    @DisplayName("08 - Saque em conta inativa lança IllegalStateException")
     void sacar_ContaInativa_LancaIllegalStateException(){
         //Arrange:
-        var conta = new Conta("Joana",0);
+        var conta = new Conta("Joana");
         conta.encerrar();
 
         //Act e Assert:
@@ -187,7 +200,7 @@ class ContaTest {
     // =======================================================
 
     @Test
-    @DisplayName("08 - Transferência válida atualiza saldo de ambas as contas")
+    @DisplayName("09 - Transferência válida atualiza saldo de ambas as contas")
     void transferir_ValorValido_AtualizaSaldoDeAmbasContas() {
         // Arrange:
         var origem = new Conta("Maria", 500);
@@ -202,10 +215,10 @@ class ContaTest {
     }
 
     @Test
-    @DisplayName("09 - Transferência com saldo insuficiente lança exceção")
+    @DisplayName("10 - Transferência com saldo insuficiente lança exceção")
     void transferir_SaldoInsuficiente_LancaIllegalStateException(){
         // Arrange:
-        var origem = new Conta("Maria", 0);
+        var origem = new Conta("Maria");
         var destino = new Conta("João", 100);
 
         //Act e Assert:
@@ -214,7 +227,7 @@ class ContaTest {
 
     @ParameterizedTest
     @ValueSource(doubles = {0, -0.01, -20})
-    @DisplayName("10 - Transferência com valor zero/negativo lança exceção")
+    @DisplayName("11 - Transferência com valor zero/negativo lança exceção")
     void transferir_ValorZeroOuNegativo_LancaIllegalArgumentException(double valor){
         // Arrange:
         var origem = new Conta("Maria", 500);
@@ -225,10 +238,10 @@ class ContaTest {
     }
 
     @Test
-    @DisplayName("11 - Transferência com conta origem inativa lança exceção")
+    @DisplayName("12 - Transferência com conta origem inativa lança exceção")
     void transferir_OrigemInativa_LancaIllegalStateException(){
         // Arrange:
-        var origem = new Conta("Maria", 0);
+        var origem = new Conta("Maria");
         var destino = new Conta("João", 100);
         origem.encerrar();
 
@@ -237,11 +250,11 @@ class ContaTest {
     }
 
     @Test
-    @DisplayName("12 - Transferência com conta destino inativa lança exceção")
+    @DisplayName("13 - Transferência com conta destino inativa lança exceção")
     void transferir_DestinoInativa_LancaIllegalStateException(){
         // Arrange:
         var origem = new Conta("Maria", 500);
-        var destino = new Conta("João", 0);
+        var destino = new Conta("João");
         destino.encerrar();
 
         //Act e Assert:
@@ -254,10 +267,10 @@ class ContaTest {
     // =======================================================
 
     @Test
-    @DisplayName("13 - Encerrar conta com saldo zero funciona")
+    @DisplayName("14 - Encerrar conta com saldo zero funciona")
     void encerrar_SaldoZero_Funciona(){
         // Arrange
-        var conta = new Conta("Camila", 0);
+        var conta = new Conta("Camila");
 
         // Act
         conta.encerrar(); //- Encerrar conta com saldo zero funciona
@@ -267,7 +280,7 @@ class ContaTest {
     }
  
     @Test
-    @DisplayName("14 - Encerrar conta com saldo lança IllegalStateException")
+    @DisplayName("15 - Encerrar conta com saldo lança IllegalStateException")
     void encerrar_SaldoMaiorZero_LancaIllegalStateException(){
         // Arrange
         var conta = new Conta("Camila", 100);
@@ -277,10 +290,10 @@ class ContaTest {
     }
 
     @Test
-    @DisplayName("15 - Encerrar conta já inativa lança IllegalStateException")
+    @DisplayName("16 - Encerrar conta já inativa lança IllegalStateException")
     void encerrar_ContaInativa_LancaIllegalStateException(){
         // Arrange
-        var conta = new Conta("Camila", 0);
+        var conta = new Conta("Camila");
         conta.encerrar();
 
         //Act e Assert:
