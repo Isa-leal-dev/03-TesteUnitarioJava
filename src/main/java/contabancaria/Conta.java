@@ -98,8 +98,8 @@ public class Conta {
         if(valor>this.saldo)
             throw new IllegalStateException("Saldo insuficiente!");
 
-        this.saldo -= valor; //Saldo de origem diminui
-        destino.saldo += valor; //Saldo de destino aumenta     
+        this.sacar(valor); //Saque realizado da origem, saldo diminui
+        destino.depositar(valor); //Depósito realizado para origem, saldo aumenta     
     }
 
     /**
